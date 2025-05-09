@@ -5,122 +5,263 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The End of Lineage: How the Qur'an Ends Spiritual Elitism and Opens the Path to All</title>
   <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Georgia', serif; margin: 2em; line-height: 1.6; color: #222; background-color: #fff; }
-    h1 { color: #004080; }
-    h2 { color: #003366; border-bottom: 1px solid #ccc; margin-top: 2em; }
-    h3 { color: #005580; margin-top: 1.5em; }
-    blockquote { border-left: 4px solid #004080; padding-left: 1em; margin: 1em 0; background: #eef3f9; }
-    nav { margin-bottom: 2em; }
-    ul.toc { list-style: none; padding: 0; }
-    ul.toc li { margin-bottom: 0.5em; }
-    footer { margin-top: 3em; font-size: 0.9em; text-align: center; color: #888; }
-    .verse { font-style: italic; color: #006699; }
-    .highlight { background: #ffffcc; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      color: #222;
+      min-height: 100vh;
+    }
+    .hero {
+      background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+      color: #fff;
+      padding: 3em 1em 2em 1em;
+      text-align: center;
+      border-bottom-left-radius: 2em;
+      border-bottom-right-radius: 2em;
+      box-shadow: 0 4px 24px rgba(79,70,229,0.12);
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.3em;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 1.2em;
+    }
+    .quran-link {
+      display: inline-block;
+      background: #fff;
+      color: #4f46e5;
+      font-weight: 700;
+      padding: 0.5em 1.2em;
+      border-radius: 2em;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(6,182,212,0.08);
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 1em;
+    }
+    .quran-link:hover {
+      background: #4f46e5;
+      color: #fff;
+    }
+    .toc {
+      position: sticky;
+      top: 0.5em;
+      background: rgba(255,255,255,0.95);
+      border-radius: 1em;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.07);
+      margin: 2em auto 2em auto;
+      max-width: 700px;
+      padding: 1em 2em;
+      z-index: 10;
+    }
+    .toc h2 {
+      color: #4f46e5;
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+      border: none;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+    }
+    .toc li {
+      margin: 0;
+    }
+    .toc a {
+      color: #06b6d4;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.2em 0.7em;
+      border-radius: 1em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .toc a:hover {
+      background: #06b6d4;
+      color: #fff;
+    }
+    .section-card {
+      background: #fff;
+      border-radius: 1.5em;
+      box-shadow: 0 4px 24px rgba(6,182,212,0.10);
+      margin: 2em auto;
+      max-width: 700px;
+      padding: 2em 2em 1.5em 2em;
+      position: relative;
+    }
+    .section-card h2, .section-card h3 {
+      color: #4f46e5;
+      margin-top: 0;
+    }
+    blockquote {
+      border-left: 4px solid #06b6d4;
+      padding-left: 1em;
+      margin: 1.5em 0;
+      background: #f0f9ff;
+      color: #0e7490;
+      font-style: italic;
+    }
+    .verse {
+      color: #0ea5e9;
+      font-style: italic;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 2em;
+      right: 2em;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.5em;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.15);
+      cursor: pointer;
+      display: none;
+      z-index: 100;
+      transition: background 0.2s;
+    }
+    .back-to-top:hover {
+      background: #06b6d4;
+    }
+    footer {
+      margin: 3em auto 1em auto;
+      text-align: center;
+      color: #888;
+      font-size: 1em;
+      max-width: 700px;
+    }
+    @media (max-width: 800px) {
+      .section-card, .toc, footer { max-width: 98vw; padding: 1em; }
+      .hero { padding: 2em 0.5em 1.5em 0.5em; }
+    }
   </style>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
         .then(() => console.log('Service Worker Registered'));
     }
+    window.addEventListener('scroll', function() {
+      const btn = document.getElementById('backToTop');
+      if (window.scrollY > 400) btn.style.display = 'block';
+      else btn.style.display = 'none';
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   </script>
 </head>
 <body>
-<h1>The End of Lineage: How the Qur'an Ends Spiritual Elitism and Opens the Path to All</h1>
-<nav>
-  <h2>Table of Contents</h2>
-  <ul class="toc">
-    <li><a href="#foreword">Foreword: Who is Allah?</a></li>
-    <li><a href="#definitions">How God is Defined in World Religions</a></li>
-    <li><a href="#druze">The Druze Perspective</a></li>
-    <li><a href="#islam-judaism">Islam & Judaism: Similarities and Differences</a></li>
-    <li><a href="#chosen">The Concept of 'Chosen' and Divine Favor</a></li>
-    <li><a href="#lineage">Lineage, Prophethood, and Universal Access</a></li>
-    <li><a href="#danger-lineage">When Humans Become Divine: The Danger of Lineage-Based Theology</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-  </ul>
-</nav>
-<section id="foreword">
-  <h2>Foreword: Who is Allah?</h2>
-  <p>"Allah" is the Arabic word for God, closely related to the Hebrew "Elohim" or "El." It denotes the same one God worshipped in monotheistic traditions. This booklet explores how the Qur'an and other scriptures address the concept of God, lineage, and spiritual equality.</p>
-</section>
-<section id="definitions">
-  <h2>How God is Defined in World Religions</h2>
-  <p>A comparative overview of how major world religions define and understand God (or the Divine):</p>
-  <ul>
-    <li><b>Islam:</b> Allah, strictly monotheistic, transcendent, merciful, 99 Names, direct relationship, no partners or offspring.</li>
-    <li><b>Christianity:</b> Trinitarian God (Father, Son, Holy Spirit), personal, loving, incarnate in Jesus, relational.</li>
-    <li><b>Judaism:</b> YHWH, strictly monotheistic, covenantal, transcendent yet personal, law-based.</li>
-    <li><b>Hinduism:</b> Brahman (ultimate reality), both monotheistic and polytheistic expressions, avatars, immanent and transcendent.</li>
-    <li><b>Buddhism:</b> Generally non-theistic, ultimate reality is Nirvana, focus on self-realization, not worship of a deity.</li>
-    <li><b>Sikhism:</b> Waheguru, strict monotheism, formless, eternal, immanent and transcendent.</li>
-    <li><b>Taoism:</b> Tao (The Way), not personified, underlying principle, ineffable, harmony with nature.</li>
-    <li><b>Zoroastrianism:</b> Ahura Mazda, monotheistic, wise lord, good vs. evil, justice and truth.</li>
-    <li><b>Indigenous/Tribal:</b> Great Spirit, supreme creator, immanent, nature-based, oral tradition.</li>
-    <li><b>Baha'i:</b> God, monotheistic, unknowable, progressive revelation through prophets.</li>
-  </ul>
-</section>
-<section id="druze">
-  <h2>The Druze Perspective</h2>
-  <p>The Druze faith (Al-Tawhid) is radically monotheistic, with God as the transcendent, indivisible, and unknowable source of all existence. God is beyond human comprehension and formless. The Druze believe in five cosmic principles (Hudud) as metaphysical emanations of the Divine. Their scriptures are secret, and reincarnation is a core belief. The world is a manifestation of divine truth, and all souls are on a journey of purification and return.</p>
-</section>
-<section id="islam-judaism">
-  <h2>Islam & Judaism: Similarities and Differences</h2>
-  <h3>Major Similarities</h3>
-  <ul>
-    <li>Strict monotheism</li>
-    <li>Prophets and revelation</li>
-    <li>Law-based religion (Sharia/Halakha)</li>
-    <li>Dietary laws, circumcision, prayer, fasting, pilgrimage</li>
-    <li>Direct relationship with God, iconoclasm</li>
-  </ul>
-  <h3>Key Differences</h3>
-  <ul>
-    <li>View of Jesus and Muhammad</li>
-    <li>Scripture and finality of revelation</li>
-    <li>Universal vs. tribal focus</li>
-    <li>Language of worship, conversion, messiah concept</li>
-  </ul>
-  <blockquote>"Islam and Judaism are religious siblings—very similar in their belief in One God, their focus on law, and their prophetic heritage. Their core theology overlaps significantly, but they diverge on the acceptance of later prophets, scriptures, and the scope of the religious mission."</blockquote>
-</section>
-<section id="chosen">
-  <h2>The Concept of 'Chosen' and Divine Favor</h2>
-  <p>The Qur'anic term <b>فَضَّلْنَا (faḍḍalnā)</b> means "We have favored" or "preferred," but not in the sense of intrinsic superiority. It refers to being granted extra responsibility or favor, not earned privilege. Divine favor is a trust and a test, not a declaration of being better than others. The Qur'an emphasizes that favor does not mean superiority in value before God; it is always bounded by moral obligation.</p>
-  <blockquote>"Fadl is about distribution, not distinction. What matters is not what you are given—but how you answer to it."</blockquote>
-</section>
-<section id="lineage">
-  <h2>Lineage, Prophethood, and Universal Access</h2>
-  <p>Prophetic history shows that lineage is not a guarantee of spiritual status. The Qur'an and Sunnah teach that righteousness, not bloodline, is the true measure of worth. The Prophet Muhammad ﷺ said to his daughter Fatimah that lineage will not save her in the Hereafter. The Qur'an and hadith repeatedly affirm that all relationships are suspended on the Day of Judgment, and only piety matters.</p>
-  <p>Abu Jahl and Abu Lahab, both close relatives of the Prophet, are condemned for their actions, not their lineage. Bilal, a former slave, is honored for his faith. The message is clear: "It is not who we come from, but who we strive to be, that matters in the sight of Allah."</p>
-  <h3>The End of Lineage in Prophethood</h3>
-  <p>Zakariyya's fear for the future of religion was answered by God in a way no human could have imagined: by removing lineage entirely from the preservation of revelation. The Qur'an is for all of humanity, and the Ummah becomes the carrier of the trust. The message is no longer inherited—it is entrusted to every sincere heart.</p>
-</section>
-<section id="danger-lineage">
-  <h2>When Humans Become Divine: The Danger of Lineage-Based Theology</h2>
-  <p>Many religious systems or sects have made lineage or bloodline central to spiritual authority, often leading to distortion and exclusion. Examples include:</p>
-  <ul>
-    <li><b>Catholicism:</b> Papal infallibility and apostolic succession</li>
-    <li><b>British Monarchy:</b> Divine right of kings</li>
-    <li><b>Shia Islam:</b> Imamate through Ali and Fatimah's descendants</li>
-    <li><b>Isma'ili Shi'ism:</b> Living Imam with divine light passed by succession</li>
-    <li><b>Ahmadiyya:</b> Centralized spiritual authority in a specific individual</li>
-    <li><b>Hinduism:</b> Divine incarnations (avatars) as human forms</li>
-    <li><b>Japanese Shinto:</b> Emperor as descendant of the Sun Goddess</li>
-    <li><b>Ancient Egypt:</b> Pharaoh as god-king</li>
-    <li><b>Christianity:</b> Jesus as God incarnate</li>
-    <li><b>LDS (Mormonism):</b> Lineage of priesthood</li>
-  </ul>
-  <blockquote>"If God can be Jesus or Shiva—men who look like me—then I want to be God too." <br><span class="verse">Exalted is Allah above what they associate with Him. (Qur'an 6:100)</span></blockquote>
-  <p><b>Key Insight:</b> The ones who introduce lineage into religion are the people who come one or more generations after the prophets—not the divine word of God, nor the prophets themselves. These later followers divert the religion from pure monotheism and equality into lineage-based authority.</p>
-</section>
-<section id="conclusion">
-  <h2>Conclusion</h2>
-  <p>The Qur'an's abolition of lineage-based spiritual elitism is a subtle, elegant proof of its divine origin. Unlike man-made religions that enshrine bloodline, tribe, or race, the Qur'an levels the spiritual playing field for all humanity. The final message is open to every soul, regardless of birth, and the only true measure is righteousness (taqwa).</p>
-  <blockquote>"O mankind! We created you from a male and a female, and made you into nations and tribes, so that you may know one another. Verily, the most honored of you in the sight of God is the most righteous of you." (Qur'an 49:13)</blockquote>
-</section>
-<footer>
-  Published by: [Your Name / Organization Here]<br>
-  For reflection, da'wah, and teaching
-</footer>
+  <div class="hero">
+    <h1>The End of Lineage</h1>
+    <p>How the Qur'an Ends Spiritual Elitism and Opens the Path to All</p>
+    <a class="quran-link" href="https://quran.com" target="_blank" rel="noopener">Read the Qur'an at Quran.com</a>
+  </div>
+  <nav class="toc">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#foreword">Foreword</a></li>
+      <li><a href="#definitions">Definitions of God</a></li>
+      <li><a href="#druze">Druze Perspective</a></li>
+      <li><a href="#islam-judaism">Islam & Judaism</a></li>
+      <li><a href="#chosen">'Chosen' & Divine Favor</a></li>
+      <li><a href="#lineage">Lineage & Prophethood</a></li>
+      <li><a href="#danger-lineage">Lineage-Based Theology</a></li>
+      <li><a href="#conclusion">Conclusion</a></li>
+    </ul>
+  </nav>
+  <button id="backToTop" class="back-to-top" onclick="scrollToTop()" title="Back to Top">↑</button>
+  <section id="foreword" class="section-card">
+    <h2>Foreword: Who is Allah?</h2>
+    <p>"Allah" is the Arabic word for God, closely related to the Hebrew "Elohim" or "El." It denotes the same one God worshipped in monotheistic traditions. This booklet explores how the Qur'an and other scriptures address the concept of God, lineage, and spiritual equality.</p>
+  </section>
+  <section id="definitions" class="section-card">
+    <h2>How God is Defined in World Religions</h2>
+    <p>A comparative overview of how major world religions define and understand God (or the Divine):</p>
+    <ul>
+      <li><b>Islam:</b> Allah, strictly monotheistic, transcendent, merciful, 99 Names, direct relationship, no partners or offspring.</li>
+      <li><b>Christianity:</b> Trinitarian God (Father, Son, Holy Spirit), personal, loving, incarnate in Jesus, relational.</li>
+      <li><b>Judaism:</b> YHWH, strictly monotheistic, covenantal, transcendent yet personal, law-based.</li>
+      <li><b>Hinduism:</b> Brahman (ultimate reality), both monotheistic and polytheistic expressions, avatars, immanent and transcendent.</li>
+      <li><b>Buddhism:</b> Generally non-theistic, ultimate reality is Nirvana, focus on self-realization, not worship of a deity.</li>
+      <li><b>Sikhism:</b> Waheguru, strict monotheism, formless, eternal, immanent and transcendent.</li>
+      <li><b>Taoism:</b> Tao (The Way), not personified, underlying principle, ineffable, harmony with nature.</li>
+      <li><b>Zoroastrianism:</b> Ahura Mazda, monotheistic, wise lord, good vs. evil, justice and truth.</li>
+      <li><b>Indigenous/Tribal:</b> Great Spirit, supreme creator, immanent, nature-based, oral tradition.</li>
+      <li><b>Baha'i:</b> God, monotheistic, unknowable, progressive revelation through prophets.</li>
+    </ul>
+  </section>
+  <section id="druze" class="section-card">
+    <h2>The Druze Perspective</h2>
+    <p>The Druze faith (Al-Tawhid) is radically monotheistic, with God as the transcendent, indivisible, and unknowable source of all existence. God is beyond human comprehension and formless. The Druze believe in five cosmic principles (Hudud) as metaphysical emanations of the Divine. Their scriptures are secret, and reincarnation is a core belief. The world is a manifestation of divine truth, and all souls are on a journey of purification and return.</p>
+  </section>
+  <section id="islam-judaism" class="section-card">
+    <h2>Islam & Judaism: Similarities and Differences</h2>
+    <h3>Major Similarities</h3>
+    <ul>
+      <li>Strict monotheism</li>
+      <li>Prophets and revelation</li>
+      <li>Law-based religion (Sharia/Halakha)</li>
+      <li>Dietary laws, circumcision, prayer, fasting, pilgrimage</li>
+      <li>Direct relationship with God, iconoclasm</li>
+    </ul>
+    <h3>Key Differences</h3>
+    <ul>
+      <li>View of Jesus and Muhammad</li>
+      <li>Scripture and finality of revelation</li>
+      <li>Universal vs. tribal focus</li>
+      <li>Language of worship, conversion, messiah concept</li>
+    </ul>
+    <blockquote>"Islam and Judaism are religious siblings—very similar in their belief in One God, their focus on law, and their prophetic heritage. Their core theology overlaps significantly, but they diverge on the acceptance of later prophets, scriptures, and the scope of the religious mission."</blockquote>
+  </section>
+  <section id="chosen" class="section-card">
+    <h2>The Concept of 'Chosen' and Divine Favor</h2>
+    <p>The Qur'anic term <b>فَضَّلْنَا (faḍḍalnā)</b> means "We have favored" or "preferred," but not in the sense of intrinsic superiority. It refers to being granted extra responsibility or favor, not earned privilege. Divine favor is a trust and a test, not a declaration of being better than others. The Qur'an emphasizes that favor does not mean superiority in value before God; it is always bounded by moral obligation.</p>
+    <blockquote>"Fadl is about distribution, not distinction. What matters is not what you are given—but how you answer to it."</blockquote>
+  </section>
+  <section id="lineage" class="section-card">
+    <h2>Lineage, Prophethood, and Universal Access</h2>
+    <p>Prophetic history shows that lineage is not a guarantee of spiritual status. The Qur'an and Sunnah teach that righteousness, not bloodline, is the true measure of worth. The Prophet Muhammad ﷺ said to his daughter Fatimah that lineage will not save her in the Hereafter. The Qur'an and hadith repeatedly affirm that all relationships are suspended on the Day of Judgment, and only piety matters.</p>
+    <p>Abu Jahl and Abu Lahab, both close relatives of the Prophet, are condemned for their actions, not their lineage. Bilal, a former slave, is honored for his faith. The message is clear: "It is not who we come from, but who we strive to be, that matters in the sight of Allah."</p>
+    <h3>The End of Lineage in Prophethood</h3>
+    <p>Zakariyya's fear for the future of religion was answered by God in a way no human could have imagined: by removing lineage entirely from the preservation of revelation. The Qur'an is for all of humanity, and the Ummah becomes the carrier of the trust. The message is no longer inherited—it is entrusted to every sincere heart.</p>
+  </section>
+  <section id="danger-lineage" class="section-card">
+    <h2>When Humans Become Divine: The Danger of Lineage-Based Theology</h2>
+    <p>Many religious systems or sects have made lineage or bloodline central to spiritual authority, often leading to distortion and exclusion. Examples include:</p>
+    <ul>
+      <li><b>Catholicism:</b> Papal infallibility and apostolic succession</li>
+      <li><b>British Monarchy:</b> Divine right of kings</li>
+      <li><b>Shia Islam:</b> Imamate through Ali and Fatimah's descendants</li>
+      <li><b>Isma'ili Shi'ism:</b> Living Imam with divine light passed by succession</li>
+      <li><b>Ahmadiyya:</b> Centralized spiritual authority in a specific individual</li>
+      <li><b>Hinduism:</b> Divine incarnations (avatars) as human forms</li>
+      <li><b>Japanese Shinto:</b> Emperor as descendant of the Sun Goddess</li>
+      <li><b>Ancient Egypt:</b> Pharaoh as god-king</li>
+      <li><b>Christianity:</b> Jesus as God incarnate</li>
+      <li><b>LDS (Mormonism):</b> Lineage of priesthood</li>
+    </ul>
+    <blockquote>"If God can be Jesus or Shiva—men who look like me—then I want to be God too." <br><span class="verse">Exalted is Allah above what they associate with Him. (Qur'an 6:100)</span></blockquote>
+    <p><b>Key Insight:</b> The ones who introduce lineage into religion are the people who come one or more generations after the prophets—not the divine word of God, nor the prophets themselves. These later followers divert the religion from pure monotheism and equality into lineage-based authority.</p>
+  </section>
+  <section id="conclusion" class="section-card">
+    <h2>Conclusion</h2>
+    <p>The Qur'an's abolition of lineage-based spiritual elitism is a subtle, elegant proof of its divine origin. Unlike man-made religions that enshrine bloodline, tribe, or race, the Qur'an levels the spiritual playing field for all humanity. The final message is open to every soul, regardless of birth, and the only true measure is righteousness (taqwa).</p>
+    <blockquote>"O mankind! We created you from a male and a female, and made you into nations and tribes, so that you may know one another. Verily, the most honored of you in the sight of God is the most righteous of you." (Qur'an 49:13)</blockquote>
+  </section>
+  <footer>
+    Published by: [Your Name / Organization Here]<br>
+    For reflection, da'wah, and teaching
+  </footer>
 </body>
 </html>
